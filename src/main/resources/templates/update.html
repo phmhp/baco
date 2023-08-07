@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://tymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>update</title>
+</head>
+<body>
+<h1>비밀번호 변경</h1>
+<form role="form" th:action method="post" th:object="${passwordForm}">
+    비밀번호 변경 : <input type="password" th:field="*{newPassword}" name="pw"><br>
+    비밀번호 확인 : <input type="password" th:field="*{newPasswordConfirm}" name="pw2"><br>
+    <input type="submit">
+</form>
+</body>
+</html>

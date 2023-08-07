@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <title>지도 경로 표시</title>
+    <script type="text/javascript"
+            src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=73qkoqmj6s"></script>
+</head>
+<body>
+<!--<div th:text="${jsonData}"></div>-->
+<div id="map" style="width: 605px; height: 380px;"></div>
+<!--<div id="jsonData" th:attr="data-path=${jsonData}"></div>-->
+<!--th:attr 속성: div에 data-path속성을 동적으로 설정,
+data-path속성은 {$jsonData}값을 할당.
+({$jsonData}는 Thymleaf를 통해 서버에서 가져온 데이터)-->
+
+<script th:inline="javascript">
+
+/*<![CDATA[*/
+    var jsonData = /*[[${jsonData}]]*/ '{}'; // Default to an empty object if jsonData is empty or null
+    /*]]>*/
+      var mapOptions = {
+            center: new naver.maps.LatLng(  37.5754594, 126.9761248  ),
+            zoom: 13
+        };
+var map = new naver.maps.Map('map', mapOptions);
+
+
+
+
+
+        var polylinePath = [];
+        jsonData.map((path) => {
+                polylinePath.push(new naver.maps.LatLng(path[0],path[1]));
+                });
+
+
+       const polyline = new naver.maps.Polyline({
+                path: polylinePath,
+                strokeColor: "#1D56AE",
+                strokeOpacity: 0.8, // 선의 투명도
+                strokeWeight: 3, // 선의 두께
+                map: map // 만들어 놓은 지도
+            });
+
+
+</script>
+</body>
+</html>
